@@ -1,1 +1,10 @@
 <h1>Users</h1>
+
+<ul>
+    <% for (let index = 0; index < users.length; index++) { %>
+        <li><a href="/users/<%=users[index]._id%>"> <%=users[index].name%></a></li>        
+        <form action="/users/<%=users[index]._id%>?_method=DELETE" method="POST">
+            <button>Delete User</button>
+        </form>  
+        <% } %>
+</ul>
