@@ -17,7 +17,15 @@ router.get('/', (req, res) => {
 // NEW Album - form where new entries are made
 router.get('/new', (req, res) => {
     res.render('albums/new.ejs');
-  });
+});
+
+// SHOW Album - form where new song entries are made
+router.get('/:albumId', (req, res) => {
+    // Get album ID from URL and pass to show page
+    Album.findById(req.params.albumId, (error, album) => {
+        res.render('albums/show.ejs', {album})
+    })
+});
 
 // POST Album (create) - no page; just an action which will add a new entry
 router.post('/', (req, res) => {
