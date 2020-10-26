@@ -14,9 +14,14 @@ router.get('/', (req, res) => {
     // res.render('albums/index.ejs');
 });
 
+// NEW Album - form where new entries are made
+router.get('/new', (req, res) => {
+    res.render('albums/new.ejs');
+  });
 
 // POST Album (create) - no page; just an action which will add a new entry
 router.post('/', (req, res) => {
+    // res.send (req.body);
     Album.create(req.body, (error, album) => {
         res.redirect('/albums/');
     })
