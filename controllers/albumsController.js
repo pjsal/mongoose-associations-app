@@ -25,7 +25,16 @@ router.post('/', (req, res) => {
     Album.create(req.body, (error, album) => {
         res.redirect('/albums/');
     })
-})
+});
+
+
+
+// DESTROY Album - no page; just an action that will delete an entry 
+router.delete('/:albumId', (req, res) => {
+    Album.findByIdAndRemove(req.params.albumId, (error) => {
+      res.redirect('/albums');
+    })
+});
 
 
 
