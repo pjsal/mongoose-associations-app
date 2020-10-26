@@ -11,12 +11,11 @@
 
 <ul>
     <% album.songs.forEach(tune => { %>
-    <li><a href="/albums/<%= tune._id %>/songs/<%= tune.id %>/edit"
+    <li><a href="/albums/<%= album.id %>/songs/<%= tune.id %>/edit"
         ><%= tune.songName %></a>
       <form
-        action="/album/<%= album._id %>/songs/<%= tune.id %>?_method=DELETE"
-        method="POST"
-      >
+        action="/albums/<%= album.id %>/songs/<%= tune.id %>?_method=DELETE"
+        method="POST">
         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
       </form>
     </li>

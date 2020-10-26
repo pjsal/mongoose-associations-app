@@ -62,7 +62,23 @@ router.delete('/:albumId', (req, res) => {
     })
 });
 
-
+// DESTROY song - no page; just an action that will delete an entry 
+router.delete('/:albumId/songs/:songId', (req, res) => {
+    // set the value of the user and tweet ids
+    const albumId = req.params.albumId;
+    const songId = req.params.songId;
+  
+    // find album in db by id.  This can be replaced with an update method.  Then no save would be needed either.
+    Album.findById(albumId, (err, foundAlbum) => {
+      // find song embedded in album
+      // Mongoose delete method.  This doesn't permanently persist the change in the DB.
+      foundAlbum.songs.id(songId).remove();
+      // This will save the changes in the database
+      foundAlbum.save((err, savedAlbum) => {
+        res.redirect(`/albums/${savedAlbum.id}`);
+      });
+    });
+});
 
 
 module.exports = router;
