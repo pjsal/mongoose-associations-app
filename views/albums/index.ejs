@@ -1,1 +1,10 @@
 <h1>Albums</h1>
+
+<ul>
+    <% for (let index = 0; index < albums.length; index++) { %>
+        <li><a href="/albums/<%=albums[index]._id%>"> <%=albums[index].name%></a></li>        
+        <form action="/albums/<%=albums[index]._id%>?_method=DELETE" method="POST">
+            <button>Delete Album</button>
+        </form>  
+        <% } %>
+</ul>
