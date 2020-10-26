@@ -1,6 +1,8 @@
 const router = require('express').Router();
+// Link to album model
 const Album = require('../models/album').Album;
-const Song = require('../models/user').Song;
+// Link to album model.  ***Song is part of the ALBUM model***
+const Song = require('../models/album').Song;
 
 // ROUTES
 // INDEX for Albums - main menu
@@ -35,6 +37,22 @@ router.post('/', (req, res) => {
     })
 });
 
+// POST song (create) - no page; just an action which will add a new entry
+router.post('/:albumId/songs', (req, res) => {
+    console.log(req.body);
+    // store new song in memory with data from request body/ 'Song' is from the models const statement at the top
+    const newSong = new Song({ songName: req.body.songName });
+  
+    // find album in db by id and add new song.  
+    Album.findById(req.params.albumId, (error, album) => {
+      // Push new song to copy in memory
+      album.songs.push(newSong);
+      //This will persist it in the DB
+      album.save((err, album) => {
+        res.redirect(`/albums/${album._id}`);
+      });
+    });
+  });
 
 
 // DESTROY Album - no page; just an action that will delete an entry 

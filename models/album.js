@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const songSchema = new mongoose.Schema(
   {
-    song: String,
+    songName: String,
   },
   { timestamps: true }
 );

@@ -1,1 +1,24 @@
 <h1><%=album.name%> Details</h1>
+<h4>Add a Song to the Album</h4>
+<form action="/albums/<%= album.id %>/songs" method="POST">
+  <div class="form-group">
+    <label for="songName">Song Name</label>
+    <input type="text" class="form-control" id="songName" name="songName" />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+<ul>
+    <% album.songs.forEach(tune => { %>
+    <li><a href="/albums/<%= tune._id %>/songs/<%= tune.id %>/edit"
+        ><%= tune.songName %></a>
+      <form
+        action="/album/<%= album._id %>/songs/<%= tune.id %>?_method=DELETE"
+        method="POST"
+      >
+        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+      </form>
+    </li>
+    <% }) %>
+  </ul>
