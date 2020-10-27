@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
     })
 });
 
-// POST song (create) - no page; just an action which will add a new entry
+// POST Song (create) - no page; just an action which will add a new entry
 router.post('/:albumId/songs', (req, res) => {
     console.log(req.body);
     // store new song in memory with data from request body/ 'Song' is from the models const statement at the top
@@ -53,6 +53,41 @@ router.post('/:albumId/songs', (req, res) => {
       });
     });
   });
+
+  // EDIT song - form where updates are made
+  router.get('/:albumId/songs/:songId/edit', (req, res) => {
+    // set the value of the album and song ids
+    const albumId = req.params.albumId;
+    const songId = req.params.songId;
+    console.log("this is the song id:" + songId);
+    // find album in db by id
+    Album.findById(albumId, (err, foundAlbum) => {
+      // find song embedded in album
+      // Mongoose code that will find the song we want by the id.  No need to loop through array.
+      const foundSong = foundAlbum.songs.id(songId);
+      // update song name on the form with data from request body
+      res.render('songs/edit.ejs', { foundAlbum, foundSong });
+    });
+  });
+
+// UPDATE Song (PUT) - no page; just an action that will update an entry
+router.put('/:albumId/songs/:songId', (req, res) => {
+    // set the value of the album and song ids
+    const albumId = req.params.albumId;
+    const songId = req.params.songId;
+  
+    // find album in db by id
+    Album.findById(albumId, (err, foundAlbum) => {
+        // find song embedded in album
+        // Mongoose code that will find the song we want by the id.  No need to loop through array.
+        const foundSong = foundAlbum.songs.id(songId);
+        // update song name with data from request body
+        foundSong.songName = req.body.songName;
+        foundAlbum.save((err, savedAlbum) => {
+            res.redirect(`/albums/${foundAlbum.id}`);
+        });
+    });
+});
 
 
 // DESTROY Album - no page; just an action that will delete an entry 
