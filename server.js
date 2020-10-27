@@ -29,6 +29,10 @@ app.use(methodOverride('_method'));
 app.use('/users', require('./controllers/usersController'));
 // Define path for album/songs routes and link to control file
 app.use('/albums', require('./controllers/albumsController'));
+// Define path for ingredients route and link to control file
+app.use('/ingredients', require('./controllers/ingredientsController'));
+// Define path for foods route and link to control file
+app.use('/foods', require('./controllers/foodsController'));
 
 // This is not in the controller files because it is considered a separate page - home page
 app.get('/', (req, res) => {
