@@ -17,6 +17,8 @@ mongoose.connect(
   }
 );
 
+// This is needed for Postman to send JSON requests
+app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 // Body Parser
